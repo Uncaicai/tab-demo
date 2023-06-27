@@ -2,8 +2,6 @@ import { useEffect, useRef } from 'react'
 import styles from './style.module.less'
 import { TabList } from './core/TabList'
 
-const width = 80
-
 const list = [
     {
         text: 'dashboard',
@@ -23,7 +21,7 @@ const list = [
 export default function TopBarTabs() {
     const ref = useRef<HTMLDivElement>(null)
     useEffect(() => {
-        const myTabList = new TabList(list, { width }, ref as { current: HTMLElement })
+        const myTabList = new TabList(list, { width: 80, direction: [1, 2] }, ref as { current: HTMLElement })
         myTabList.show()
         return () => {
             myTabList.remove()
