@@ -8,11 +8,17 @@ export class Drag implements IActionList {
     private _event: IAction[] = []
     initEvent(tabList: TabList, tab: Tab): void {
         const action = new Action()
-        action.on((tab.TabViewer as TabViewer).dom, 'dragstart', () => {
-            console.log('start')
-        })
-        action.on((tab.TabViewer as TabViewer).dom, 'dragend', () => {
-            console.log('end')
+        action.on((tab.TabViewer as TabViewer).dom, 'mousedown', () => {
+            console.log('mousedown')
+            const handleMouseMove = () => { console.log('mousemove') }
+            const handleMouseUp = () => {
+                console.log('mouseup');
+                document.removeEventListener('mouseup', handleMouseUp);
+                document.removeEventListener('mousemove', handleMouseMove)
+            }
+            document.addEventListener('mousemove', handleMouseMove);
+            document.addEventListener('mouseup', handleMouseUp)
+
         })
         this._event = [action]
     }

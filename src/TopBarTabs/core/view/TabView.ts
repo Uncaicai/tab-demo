@@ -13,7 +13,7 @@ export class TabViewer implements ITabViewer {
         return this._dom
     }
 
-    constructor(config: ITabViewConfig) {
+    constructor(config: ITabViewConfig, private _containerRef?: { current: HTMLElement }) {
         const d = document.createElement('div')
         this._dom = d
         this._config = config
@@ -29,9 +29,19 @@ export class TabViewer implements ITabViewer {
         this.select(selected)
     }
 
+    show(): void {
+        if (this._containerRef?.current)
+            this._containerRef?.current?.appendChild(this._dom)
+    }
+    remove(): void {
+        if (this._containerRef)
+            this._containerRef?.current?.removeChild(this._dom)
+    }
+
     move(ind: number): void {
         this._dom.style.left = `${ind * this._config.width}px`
     }
+
     select(isSelect: boolean): void {
         if (isSelect) {
             this._dom.classList.remove(styles.unSelected)

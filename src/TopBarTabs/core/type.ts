@@ -1,6 +1,8 @@
 export interface ITabViewer {
     move(ind: number): void
     select(isSelect: boolean): void
+    show(): void
+    remove(): void
 }
 
 export interface IAction {
