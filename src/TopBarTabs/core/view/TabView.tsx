@@ -44,11 +44,11 @@ export class TabViewer implements ITabViewer {
 
     select(isSelect: boolean): void {
         if (isSelect) {
-            this._dom.classList.remove(styles.unSelected)
+            // this._dom.classList.remove(styles.unSelected)
             this._dom.classList.add(styles.selected)
         } else {
             this._dom.classList.remove(styles.selected)
-            this._dom.classList.add(styles.unSelected)
+            // this._dom.classList.add(styles.unSelected)
         }
     }
 

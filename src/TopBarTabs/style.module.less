@@ -1,20 +1,60 @@
+@c-bgc: #272B47;
+@c-font: white;
+
 .container {
+    padding: 0 10px 0px 20px;
+    background-color: #272B47;
+    height: 26px;
     display: flex;
     align-items: center;
+}
+
+.main {
+    width: 0;
+    height: 100%;
     position: relative;
-    height: 25px;
+    flex: 1;
+    overflow: hidden;
+    margin-right: 10px;
 }
 
 .item {
-    margin: 2px;
-    padding: 2px;
-    position: absolute;
+    z-index: 10;
+    color: white;
+    padding: 3px 10px;
+    border-radius: 5px 5px 0px 0px;
     cursor: pointer;
-    user-select: none;
+    position: absolute;
+    height: 26px;
+
+    &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 1px;
+        height: 15px;
+        background-color: #737475;
+        top: 7px;
+        right: -1px;
+    }
+
+    user-select:none;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .selected {
-    outline: 1px solid red;
+    background-color: @c-font;
+    color: @c-bgc !important;
+    font-weight: 700;
+
+    &::after {
+        opacity: 0;
+    }
+
+    z-index: 11 !important;
 }
 
 .unSelected {

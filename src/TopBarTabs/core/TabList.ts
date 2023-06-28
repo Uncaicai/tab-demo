@@ -1,7 +1,7 @@
 import { Drag } from "./Drag";
 import { Select } from "./Select";
 import { Tab } from "./Tab";
-import { IActionList } from "./type";
+import { IActionList, ITabItem } from "./type";
 import { TabViewer } from "./view/TabView";
 interface ITabListConfig {
     width: number
@@ -16,19 +16,15 @@ export class TabList {
     get config() {
         return this._config
     }
-    constructor(list: {
-        text: string, selected: boolean
-    }[], private _config: ITabListConfig, private _containerRef: { current: HTMLElement }) {
+    constructor(list: ITabItem[], private _config: ITabListConfig, private _containerRef: { current: HTMLElement }) {
         this.init(list)
     }
 
-    init(list: {
-        text: string, selected: boolean
-    }[]) {
+    init(list: ITabItem[]) {
         this._list = list.map((item, ind) => {
-            const tab = new Tab(ind, item.selected)
+            const tab = new Tab(ind, item?.isCur || false)
             const tabViewer = new TabViewer({
-                text: item.text, selected: item.selected, ind, width: this._config.width
+                text: item.text, selected: item?.isCur || false, ind, width: this._config.width
             }, this._containerRef)
             tab.TabViewer = tabViewer
             return tab

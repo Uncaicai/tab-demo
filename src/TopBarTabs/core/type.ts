@@ -14,3 +14,10 @@ export interface IActionList {
     initEvent(...args: unknown[]): void
     removeEvent(): void
 }
+
+export interface ITabItem {
+    id: string;
+    text: string;
+    route: any;
+    isCur?: boolean;
+}

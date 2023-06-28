@@ -5,6 +5,7 @@ import { TabList } from "../TabList";
 import { isBetween } from "../util";
 export class DragViewer {
     private _startClientX: number | null = null
+    private _moveted = false
 
     getVisible(ind?: number) {
         return (isNaN(ind as number) ? Number(this._tab.index) : Number(ind)) > this._tabList.config.direction[1];
@@ -26,6 +27,7 @@ export class DragViewer {
     dragStart() {
         this.dom?.classList.remove(styles.scrollAnimation)
         this._startClientX = null
+        this._moveted = false
     }
 
     dragMove(e: MouseEvent) {
@@ -52,6 +54,9 @@ export class DragViewer {
                     }
                 });
             }
+            if (!this._moveted && this._tab.index !== targetInd) {
+                this._moveted = true
+            }
             this._tab.move(targetInd)
             this.move(newOffset);
         }
@@ -60,7 +65,8 @@ export class DragViewer {
 
     dragEnd() {
         this.dom.classList.add(styles.scrollAnimation);
-        this.moveToInd(Math.max(Math.min(this._tabList.config.direction[1], Number(this._tab.index)), this._tabList.config.direction[0]));
+        if (this._moveted)
+            this.moveToInd(Math.max(Math.min(this._tabList.config.direction[1], Number(this._tab.index)), this._tabList.config.direction[0]));
     }
 
     constructor(private _tabList: TabList, private _tab: Tab) { }
